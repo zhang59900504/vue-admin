@@ -1,20 +1,25 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+  <p class="op" >
+ 我们正积努力建设官方网站中~~~~~！合作电话：18166478224
+    </p>
   </div>
 </template>
 <script>
 export default {
     data() {
       return {
-        
+        id:null
       }
     },  
     methods: {
+       voido(){
+        this.id=this.$route.params.id
+       },
    async mo(){
       try{
           console.log("111");
-          var xhr= await this.global.wxPromise('/api/home/UserInfo')
+          var xhr= await this.global.wxPromise('http://mltk.cqkfzx.com/WX/Default/Test')
           console.log(xhr);
             console.log("222");
        }
@@ -32,6 +37,7 @@ export default {
     },
   created(){
        this.mo();
+         this.voido();
       //  this.ko();
   }
 }

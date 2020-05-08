@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="opening">
+    <h1 id="lll"></h1>
+</div>
+
+<style>
+    * {
+        margin:0 ;
+        height:0;
+    }
+    .opening {
+        width:500px;
+        height:35px;
+        background:#eee;
+       margin:50px;
+       border-radius:70px;
+       border:5px solid #ccc;
+       overflow:hidden;
+    }
+    #lll {
+        border-radius: 70px;
+        float: left;
+        display: block;
+        height: 100%;
+        width: 0;
+        background: #ff6a00;
+        transition:all 1s;
+    }
+</style>
+<div id="app">
+
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
+
+
+</div>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue-router/3.1.3/vue-router.min.js"></script>
+
+
+
+<!--===================页面1=====================-->
+<template id="open1">
+    <div>
+        <h1>{{op}}</h1>
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <router-link to="/bar/t222">Go to Bar</router-link><br />
+    </div>
+</template>
+<script>
+    const vuelogin = Vue.component("VueLogin", {
+        template: "#open1",
+        data() {
+            return {
+                op: '123852'
+            }
+        },
+    });
+
+</script>
+<!--===================页面1=====================-->
+<!--===================页面2=====================-->
+<template id="open2">
+    <div>
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1588928063604&di=9d0e93db0a18bd941fa4d90b3d8f7687&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F82%2F28%2F01300000164586122080283573546.gif" />
+        <h1>{{op}}</h1>
+        <br />
+        <br />
+        <h1>{{id}}</h1>
+        <br />
+        <br />
+        <router-link to="/foo">Go to Foo</router-link><br>
+    </div>
+</template>
+<script>
+
+    const VueLoginOp = Vue.component("VueLoginOp", {
+        template: "#open2",
+        data() {
+            return {
+                keyop: false,
+                op: '1478932',
+                id: null,
+                message: 'Vue的生命周期'
+            }
+        },
+        methods: {
+            showInfo: function () {
+                console.log("我被点击了");
+            },
+        },
+        mounted() {
+            this.id = this.$route.params.id
+            console.log(this.id);
+            this.showInfo();
+
+        }
+    });
+</script>
+<!--===================页面2=====================-->
+<!--路由-->
+
+<script>
+    //import RankList from  '../Views/Home/jklove.vue'
+    const routes = [
+        {
+            path: '/',
+            redirect: '/foo',//重定向
+            component: vuelogin
+        },
+        {
+            path: '/foo',
+            component: vuelogin
+        },
+        {
+            path: '/bar/:id',
+            component: VueLoginOp
+        },
+        //{
+        //    path: '/love',
+        //    component: RankList
+        //}
+    ]
+    const router = new VueRouter({
+        routes,
+
+    })
+</script>
+<!--路由-->
+<!--入口-->
+<script>
+    const lll = document.getElementById("lll");
+    const app = new Vue({
+        router,
+        data: {
+            id: null,
+            message: "生命周期"
+        },
+        beforeCreate: function () {
+            lll.style.width = "25%"
+            console.log("%c%s", "color:red", "挂载状态：: 25%")
+        },
+        created: function () {
+            lll.style.width = "50%"
+            console.log("%c%s", "color:red", "挂载状态：: 50%")
+        },
+        beforeMount: function () {
+            lll.style.width = "75%"
+            console.log("%c%s", "color:red", "挂载状态：: 75%")
+        },
+        mounted() {
+            lll.style.width = "100%"
+            console.log("%c%s", "color:red", "挂载状态：: 100%")
+        },
+        beforeUpdate: function () {
+            console.group('beforeUpdate 更新前状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el);
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "data   : " + this.$data);
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        updated: function () {
+            console.group('updated 更新完成状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el);
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "data   : " + this.$data);
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        beforeDestroy: function () {
+            console.group('beforeDestroy 销毁前状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el);
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "data   : " + this.$data);
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        destroyed: function () {
+            console.group('destroyed 销毁完成状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el);
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "data   : " + this.$data);
+            console.log("%c%s", "color:red", "message: " + this.message)
+        }
+
+    }).$mount('#app')
+
+    // 现在，应用已经启动了！
+
+</script>
+<!--入口-->
